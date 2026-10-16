@@ -1,0 +1,17 @@
+services:
+  telegram-bot:
+    build: .
+    container_name: boris-telegram-bot
+    restart: unless-stopped
+    init: true
+    env_file:
+      - .env
+    environment:
+      DATABASE_PATH: /app/data/bot.sqlite3
+    volumes:
+      - bot-data:/app/data
+      - ./credentials:/app/credentials:ro
+    stop_grace_period: 30s
+
+volumes:
+  bot-data:
